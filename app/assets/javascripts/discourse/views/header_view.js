@@ -94,6 +94,7 @@ Discourse.HeaderView = Discourse.View.extend({
           headerView.dockedHeader = false;
         }
       }
+      console.log(headerView.docAt);
     });
 
   },

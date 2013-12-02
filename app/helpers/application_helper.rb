@@ -19,9 +19,9 @@ module ApplicationHelper
     end
   end
 
-  def html_classes
-    "#{mobile_view? ? 'mobile-view' : 'desktop-view'} #{mobile_device? ? 'mobile-device' : 'not-mobile-device'}"
-  end
+  # def html_classes
+  #   "#{mobile_view? ? 'mobile-view' : 'desktop-view'} #{mobile_device? ? 'mobile-device' : 'not-mobile-device'}"
+  # end
 
   def escape_unicode(javascript)
     if javascript
@@ -124,9 +124,14 @@ module ApplicationHelper
     end
   end
 
+  def stylesheet_filenames(target=:desktop)
+    # TODO: unless customization_disabled?
+    [asset_path("#{target}.css"), SiteCustomization.custom_stylesheet_path(session[:preview_style], target)].compact
+  end
+
   def mobile_device?
     # TODO: this is dumb. user agent matching is a doomed approach. a better solution is coming.
-    request.user_agent =~ /Mobile|webOS|Nexus 7/ and !(request.user_agent =~ /iPad/)
+    !(request.user_agent =~ /Mobile|webOS|Nexus 7/).nil? and !(request.user_agent =~ /iPad/)
   end
 
   def customization_disabled?
